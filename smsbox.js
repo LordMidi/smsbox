@@ -40,8 +40,6 @@ var side = [
     new THREE.Vector2(.46, 1) // upper left corner       
 ]
 
-var plasticMaterial = new THREE.MeshStandardMaterial({color: 0x222222});
-
 var boxGeometry = new THREE.BoxGeometry(1.5, 2, .3);
 boxGeometry.faceVertexUvs[0] = [];
 
@@ -70,27 +68,32 @@ boxGeometry.faceVertexUvs[0][10] = [back[3], back[0], back[2]];
 boxGeometry.faceVertexUvs[0][11] = [back[0], back[1], back[2]];
 
 var material = new THREE.MeshStandardMaterial({
-    map: new THREE.TextureLoader().load('cover/sms_aceofaces_eu.jpg'),
-    color: 0x333333
+    map: new THREE.TextureLoader().load('theninja.jpg'),
+    color: 0xffffff
 });
-
 
 var box = new THREE.Mesh(boxGeometry, material);
 box.rotation.x = -.05;
 scene.add(box);
 
-// box edges
-var edgeFrontBackGeometry = new THREE.BoxGeometry(1.55, 2.08, .02);;
-var edgeFront = new THREE.Mesh(edgeFrontBackGeometry, new THREE.MeshStandardMaterial({color: 0x222222}));
+// box
+var plasticMaterial = new THREE.MeshStandardMaterial({color: 0x222222});
+var edgeBodyGeometry = new THREE.BoxGeometry(1.5, 2, .29);
+var edgeBody = new THREE.Mesh(edgeBodyGeometry, plasticMaterial);
+edgeBody.position.x = .01;
+box.add(edgeBody);
+
+var edgeFrontBackGeometry = new THREE.BoxGeometry(1.55, 2.08, .02);
+var edgeFront = new THREE.Mesh(edgeFrontBackGeometry, plasticMaterial);
 edgeFront.position.x = 0.026;
 edgeFront.position.z = .135;
 box.add(edgeFront);
-var edgeBack = new THREE.Mesh(edgeFrontBackGeometry, new THREE.MeshStandardMaterial({color: 0x222222}));
+var edgeBack = new THREE.Mesh(edgeFrontBackGeometry, plasticMaterial);
 edgeBack.position.x = 0.026;
 edgeBack.position.z = -.135;
 box.add(edgeBack);
-var edgeLeftGeometry = new THREE.BoxGeometry(0.1, 2.08, .29);;
-var edgeLeft = new THREE.Mesh(edgeLeftGeometry, new THREE.MeshStandardMaterial({color: 0x222222}));
+var edgeLeftGeometry = new THREE.BoxGeometry(0.1, 2.08, .29);
+var edgeLeft = new THREE.Mesh(edgeLeftGeometry, plasticMaterial);
 edgeLeft.position.x = -.6999;
 box.add(edgeLeft);
 
@@ -118,5 +121,7 @@ function animate() {
     }
     box.rotation.y = rotation;
     renderer.render(scene, camera);
+    
 }
+
 animate();
